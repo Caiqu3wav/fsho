@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "models/BeatModel.ts", "server/consultaDb.mjs", "server/consultaDbModule.js", "src/app/components/BeatCard", "server/db.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "models/BeatModel.js", "server/beatController.js", "server/index.js", "src/app/components/BeatCard", "server/db.js", "src/app/api/beats/route.ts"],
   "exclude": ["node_modules"]
 }
