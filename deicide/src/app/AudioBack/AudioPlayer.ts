@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import {
+import { 
     Controls,
     PlaybackState,
     PlayerState,
     Playlist,
     TrackMetadata,
   } from './Types';
+
+  export interface AudioplayerControls extends Controls {
+    playSpecificTrack: (trackIndex: number) => void;
+  }
   
   export function createAudioplayer(
-    playlist: Playlist,
+    beats: Playlist,
     onStateChange: (state: PlayerState) => void,
   ): Controls {
     let currentTrackIndex = 0;
@@ -23,6 +27,12 @@ import {
       const state = computeCurrentPlayerState();
       onStateChange(state);
     }
+
+    function playSpecificTrack(trackIndex: number): void {
+      if (trackIndex >= 0 && trackIndex < beats.length) {
+        const selectedTrack = beats[trackIndex];
+      };
+    }
   
     function computeCurrentPlayerState(): PlayerState {
       return {
@@ -36,8 +46,8 @@ import {
     }
   
     function getCurrentTrackMetadata(): TrackMetadata | null {
-      if (currentTrackIndex < playlist.length) {
-        return playlist[currentTrackIndex].metadata;
+      if (currentTrackIndex < beats.length) {
+        return beats[currentTrackIndex].metadata;
       } else {
         return null;
       }
@@ -92,7 +102,7 @@ import {
     }
   
     function loadTrack(index: number) {
-      audioElement.src = playlist[index].audioSrc;
+      audioElement.src = beats[index].audio;
       audioElement.load();
       currentTrackIndex = index;
     }
@@ -102,12 +112,12 @@ import {
     }
   
     function computeSubsequentTrackIndex(): number {
-      return (currentTrackIndex + 1) % playlist.length;
+      return (currentTrackIndex + 1) % beats.length;
     }
   
     function computeRandomTrackIndex(): number {
-      if (playlist.length === 1) return 0;
-      const index = Math.floor(Math.random() * (playlist.length - 1));
+      if (beats.length === 1) return 0;
+      const index = Math.floor(Math.random() * (beats.length - 1));
       return index < currentTrackIndex ? index : index + 1;
     }
     //#endregion
@@ -177,5 +187,6 @@ import {
       playPreviousTrack,
       togglePlayPause,
       cleanup,
+      playSpecificTrack,
     };
   }

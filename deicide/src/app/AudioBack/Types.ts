@@ -1,12 +1,14 @@
 export type Playlist = Array<Track>;
 
 export type Track = {
-  audioSrc: string;
+  audio: string;
+  id: number
   metadata: TrackMetadata;
 };
 
 export type TrackMetadata = {
-  coverArtSrc: string;
+  imagem: string;
+  nome: string;
 };
 
 /* === Controls === */

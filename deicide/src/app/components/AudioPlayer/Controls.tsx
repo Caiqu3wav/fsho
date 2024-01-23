@@ -19,7 +19,12 @@ type ControlsProps = {
     isPlaying: boolean;
     repeat: boolean;
     shuffle: boolean;
+    playSpecificTrack: (trackIndex: number) => void; // Adicione esta linha
   };
+
+  export interface ExtendedControlsProps extends ControlsProps {
+    playSpecificTrack: (trackIndex: number) => void;
+  }
   
   const Controls = ({
     onPlayClick,
@@ -30,6 +35,7 @@ type ControlsProps = {
     onRepeatClick,
     shuffle,
     onShuffleClick,
+    playSpecificTrack,
   }: ControlsProps) => {
     return (
         <div className="flex flex-row mt-4 text-4xl">
@@ -48,6 +54,9 @@ type ControlsProps = {
             src={repeat ? <FaRepeat /> : <PiRepeatDuotone />}
             onClick={onRepeatClick}
           />
+          <button onClick={() => playSpecificTrack(0)}>
+        Play Specific Track
+      </button>
         </div>
       );
     };

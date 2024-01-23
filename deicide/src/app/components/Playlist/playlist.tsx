@@ -2,11 +2,13 @@
 import { useEffect, useState } from 'react'
 import "./playlist.css"
 import { RiNeteaseCloudMusicFill } from "react-icons/ri";
+import { AiTwotonePlayCircle } from "react-icons/ai";
 import AudioPlayer from '../AudioPlayer/Audioplayer';
 
 const Playlist = () => {
  const [beats, setBeats] = useState([]);
  const [ordenacao, setOrdenacao] = useState('recentes');
+ const { playAudio, showPlayer } = useAudioPlayer(beats)
 
  useEffect(() => {
   async function fetchBeats() {
@@ -49,12 +51,13 @@ const Playlist = () => {
       {beats.map((beat) => (
         <div key={beat.id}>
           <img className='w-[200px] h-[200px]' src={beat.imagem} alt={`Capa de ${beat.nome}`} />
+          <button><AiTwotonePlayCircle/></button>
           <h2>{`${beat.nome}`}</h2>
           <p>Gêneros: {Array.isArray(beat.estilo) ? beat.estilo.join(', ') : beat.estilo}</p>
         </div>
       ))}
     </div>
-    <AudioPlayer />
+    <AudioPlayer/>
     </div>
   );
 }
